@@ -3,12 +3,11 @@
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
-import { login } from "@/api/auth"
+import { useEffect, useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
-
+import { login } from "@/lib/api"
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -29,8 +28,15 @@ export function Login() {
     },
   })
 
-  const { setAuthenticated } = useAuth()
+  const { setAuthenticated, isAuthenticated } = useAuth()
   const router = useRouter()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/search")
+    }
+  }, [isAuthenticated, router])
+
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const onSubmit = async (values: FormData) => {
