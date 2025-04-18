@@ -191,7 +191,7 @@ export default function DogSearch() {
                     <SelectTrigger>
                       <SelectValue placeholder="Select breed" />
                     </SelectTrigger>
-                    <SelectContent className="max-h-[300px]">
+                    <SelectContent className="max-h-[300px] bg-white">
                       {breeds.map((breed) => (
                         <SelectItem key={breed} value={breed}>
                           {breed}
@@ -219,6 +219,8 @@ export default function DogSearch() {
                     step={1}
                     onValueChange={(value) => setAgeRange(value as [number, number])}
                     className="my-4"
+                    rangeClassName="bg-amber-600"
+                    trackClassName="bg-gray-200"
                   />
                 </div>
                 <Button onClick={() => handleSearch()} className="w-full bg-amber-600 text-white">
